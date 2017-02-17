@@ -38,6 +38,26 @@ Passenger_Fare_sum = test_df[['PassengerId', 'Fare']].groupby(['PassengerId']).s
 embarked_gp
 Passenger_Fare_sum
 
+# Get Fare for Embarked Passenger Types Q and S
+fare_Q = test_df['Fare'][test_df['Embarked'] == 'Q']
+fare_S = test_df['Fare'][test_df['Embarked'] == 'S']
+
+# Get Average and Std Fare fo Embarked Passenger Types Q and S
+average_fare = DataFrame([fare_Q.mean(), fare_S.mean()])
+std_fare = DataFrame([fare_Q.std(), fare_S.std()])
+
+
+# In[72]:
+
+# Histogram Plot
+test_df['Fare'].plot(kind='hist', figsize=(15,3),bins=100, xlim=(0,80))
+
+# Box Plot
+average_fare.index.names = std_fare.index.names = ["Embarked"]
+average_fare.plot(yerr=std_fare,kind='bar',legend=False)
+
+
+
 # Make pandas dataframe a dic
 fares_dict = Passenger_Fare_sum.to_dict(orient='dict')
 fares_dict
